@@ -105,6 +105,10 @@ GtkWidget *create_battery_page()
 	entry_power = gtk_entry_new();
 
 	GtkWidget *btn_calculate = gtk_button_new_with_label("计算");
+	
+	g_signal_connect(entry_voltage, "activate", G_CALLBACK(on_calculate_clicked), NULL);
+	g_signal_connect(entry_power, "activate", G_CALLBACK(on_calculate_clicked), NULL);
+
 	g_signal_connect(btn_calculate, "clicked", G_CALLBACK(on_calculate_clicked), NULL);
 
 	label_result = gtk_label_new("请输入数据并点击计算");
@@ -137,6 +141,10 @@ GtkWidget *create_other_page()
 	entry_power_max = gtk_entry_new();
 
 	GtkWidget *btn_calculate = gtk_button_new_with_label("计算");
+
+	g_signal_connect(entry_power_duty, "activate", G_CALLBACK(calculate_duty), NULL);
+	g_signal_connect(entry_power_max, "activate", G_CALLBACK(calculate_duty), NULL);
+
 	g_signal_connect(btn_calculate, "clicked", G_CALLBACK(calculate_duty), NULL);
 	label_result_duty = gtk_label_new("请输入数据并点击计算");
 
@@ -164,7 +172,7 @@ void calculate_duty(GtkWidget *widget, gpointer data)
 		gtk_label_set_text(GTK_LABEL(label_result_duty), "请输入正确的电压");
 		return;
 	}
-	
+
 	if (powerMax <= 25)
 	{
 		gtk_label_set_text(GTK_LABEL(label_result_duty), "最大功率必须大于25");
