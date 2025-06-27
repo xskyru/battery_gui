@@ -8,10 +8,11 @@
 - 自动计算电池数量
 - 给出过压/欠压保护电压
 - 显示母线电流估算值
+- 占空比计算
 
 ## 📷 截图展示
 
-![image-20250624012925439](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20250624012925439.png)
+![Image](https://github.com/user-attachments/assets/fd6fd79d-2074-4aae-a51d-de90a875b811)
 
 > 后续可贴上截图说明界面界面
 
