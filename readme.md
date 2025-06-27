@@ -12,7 +12,7 @@
 
 ## 📷 截图展示
 
-![Image](https://github.com/user-attachments/assets/fd6fd79d-2074-4aae-a51d-de90a875b811)
+> ![Image](https://github.com/user-attachments/assets/a6280b88-ff32-4e8d-b18c-3e1029ab750d)
 
 > 后续可贴上截图说明界面界面
 
