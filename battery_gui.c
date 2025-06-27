@@ -13,6 +13,8 @@ GtkWidget *label_result_duty;
 GtkWidget *create_battery_page();
 GtkWidget *create_other_page();
 void calculate_duty(GtkWidget *widget, gpointer data);
+void on_clear_battery_clicked(GtkWidget *widget, gpointer data);
+void on_clear_duty_clicked(GtkWidget *widget, gpointer data);
 
 void on_calculate_clicked(GtkWidget *widget, gpointer data)
 {
@@ -105,7 +107,10 @@ GtkWidget *create_battery_page()
 	entry_power = gtk_entry_new();
 
 	GtkWidget *btn_calculate = gtk_button_new_with_label("计算");
+	GtkWidget *btn_clear = gtk_button_new_with_label("清除");
+	g_signal_connect(btn_clear, "clicked", G_CALLBACK(on_clear_battery_clicked), NULL);
 
+	//回车键可以计算结果
 	g_signal_connect(entry_voltage, "activate", G_CALLBACK(on_calculate_clicked), NULL);
 	g_signal_connect(entry_power, "activate", G_CALLBACK(on_calculate_clicked), NULL);
 
@@ -117,7 +122,8 @@ GtkWidget *create_battery_page()
 	gtk_grid_attach(GTK_GRID(grid), entry_voltage, 1, 0, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), label2, 0, 1, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), entry_power, 1, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), btn_calculate, 0, 2, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), btn_calculate, 0, 2, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), btn_clear, 1, 2, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), label_result, 0, 3, 2, 1);
 
 	return grid; // 🔁 返回这个页面
@@ -141,7 +147,10 @@ GtkWidget *create_other_page()
 	entry_power_max = gtk_entry_new();
 
 	GtkWidget *btn_calculate = gtk_button_new_with_label("计算");
+	GtkWidget *btn_clear = gtk_button_new_with_label("清除");
+	g_signal_connect(btn_clear, "clicked", G_CALLBACK(on_clear_duty_clicked), NULL);
 
+	// 回车键可以计算结果
 	g_signal_connect(entry_power_duty, "activate", G_CALLBACK(calculate_duty), NULL);
 	g_signal_connect(entry_power_max, "activate", G_CALLBACK(calculate_duty), NULL);
 
@@ -152,7 +161,8 @@ GtkWidget *create_other_page()
 	gtk_grid_attach(GTK_GRID(grid), entry_power_duty, 1, 0, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), label2, 0, 1, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), entry_power_max, 1, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), btn_calculate, 0, 2, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), btn_calculate, 0, 2, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), btn_clear, 1, 2, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), label_result_duty, 0, 3, 2, 1);
 
 	return grid;
@@ -192,4 +202,20 @@ void calculate_duty(GtkWidget *widget, gpointer data)
 	// sprintf(resultDuty, "占空比为：%d", duty);
 	snprintf(resultDuty, sizeof(resultDuty), "占空比为：%d%%", duty);
 	gtk_label_set_text(GTK_LABEL(label_result_duty), resultDuty);
+}
+
+// 清除电池计算输入
+void on_clear_battery_clicked(GtkWidget *widget, gpointer data)
+{
+	gtk_entry_set_text(GTK_ENTRY(entry_voltage), "");
+	gtk_entry_set_text(GTK_ENTRY(entry_power), "");
+	gtk_label_set_text(GTK_LABEL(label_result), "请输入数据并点击计算");
+}
+
+// 清除占空比计算输入
+void on_clear_duty_clicked(GtkWidget *widget, gpointer data)
+{
+	gtk_entry_set_text(GTK_ENTRY(entry_power_duty), "");
+	gtk_entry_set_text(GTK_ENTRY(entry_power_max), "");
+	gtk_label_set_text(GTK_LABEL(label_result_duty), "请输入数据并点击计算");
 }
