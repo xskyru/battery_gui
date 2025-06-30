@@ -189,14 +189,8 @@ void calculate_duty(GtkWidget *widget, gpointer data)
 		return;
 	}
 
-	// 防止除以 0
-	if (powerMax == power)
-	{
-		gtk_label_set_text(GTK_LABEL(label_result_duty), "最大功率不能等于目标功率");
-		return;
-	}
-
 	int duty = (((power - 25) * 80) / (powerMax - 25) + 10);
+	 duty = duty > 100 ? 100 : duty;
 
 	char resultDuty[256];
 	// sprintf(resultDuty, "占空比为：%d", duty);
